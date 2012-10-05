@@ -312,11 +312,8 @@ mali-y += common/mali_l2_cache.o
 ifeq ($(USING_MALI_SLP_GLOBAL_LOCK),1)
 mali-y += \
 	linux/mali_slp_global_lock.o
-
-ifeq ($(CONFIG_GPU_CLOCK_CONTROL),y)
-mali-y += common/gpu_clock_control.o
-mali-y += common/gpu_voltage_control.o
 endif
+
 
 ifeq ($(PANIC_ON_WATCHDOG_TIMEOUT),1)
 	EXTRA_CFLAGS += -DUSING_KERNEL_PANIC
