@@ -1216,6 +1216,8 @@ static int mms100_update_section_data(struct i2c_client *_client)
 
 static eISCRet_t mms100_open_mbinary(struct i2c_client *_client)
 {
+	int i;
+	char file_name[64];
 	int ret = 0;
 
 	ret += request_firmware(&(fw_mbin[1]),\
@@ -1816,6 +1818,7 @@ err_req_irq:
 static int mms_ts_fw_info(struct mms_ts_info *info)
 {
 	struct i2c_client *client = info->client;
+	struct i2c_adapter *adapter = to_i2c_adapter(client->dev.parent);
 	int ret = 0;
 	int ver, hw_rev;
 
@@ -1851,6 +1854,7 @@ static int mms_ts_fw_load(struct mms_ts_info *info)
 {
 
 	struct i2c_client *client = info->client;
+	struct i2c_adapter *adapter = to_i2c_adapter(client->dev.parent);
 	int ret = 0;
 	int ver, hw_rev;
 	int retries = 3;
@@ -3126,6 +3130,7 @@ static int mms_ts_resume(struct device *dev)
 {
 	struct i2c_client *client = to_i2c_client(dev);
 	struct mms_ts_info *info = i2c_get_clientdata(client);
+	int ret = 0;
 
 	if (info->enabled)
 		return 0;
